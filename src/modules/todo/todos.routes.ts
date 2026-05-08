@@ -1,6 +1,6 @@
 import express from "express";
-import todosController from "../controllers/todos.controller";
-import logger from "../middlewares/logger";
+import logger from "../../middlewares/logger";
+import todosController from "./todos.controller";
 const router = express.Router();
 
 router.post("/", logger, todosController.todosCreateController);

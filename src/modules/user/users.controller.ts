@@ -1,12 +1,17 @@
+import bcrypt from "bcryptjs";
 import { Request, Response } from "express";
-import userServices from "../services/users.service";
+import userServices from "./users.service";
 
 const userCreateController = async (req: Request, res: Response) => {
-  const { name, email, age, phone, address } = req.body;
+  const { name, email, password, role, age, phone, address } = req.body;
+
+  const hash = await bcrypt.hash(password, 10);
   try {
     const result = await userServices.userCreateService({
       name,
       email,
+      password: hash,
+      role,
       age,
       phone,
       address,
@@ -27,12 +32,13 @@ const userCreateController = async (req: Request, res: Response) => {
 };
 
 const userUpdateController = async (req: Request, res: Response) => {
-  const { name, email, age, phone, address } = req.body;
-
+  const { name, email, password, role, age, phone, address } = req.body;
   try {
     const result = await userServices.userUpdateService({
       name,
       email,
+      password,
+      role,
       age,
       phone,
       address,

@@ -1,10 +1,11 @@
 import express from "express";
-import userController from "../controllers/users.controller";
+import authMiddleware from "../../middlewares/authMiddleware";
+import userController from "./users.controller";
 const router = express.Router();
 
 router.post("/", userController.userCreateController);
 router.put("/:id", userController.userUpdateController);
 router.delete("/:id", userController.userDeleteController);
-router.get("/", userController.userListController);
+router.get("/", authMiddleware("admin"), userController.userListController);
 
 export const userRouter = router;

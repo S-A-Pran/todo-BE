@@ -2,8 +2,10 @@ import express, { Request, Response } from "express";
 
 import config from "./config";
 import initDB from "./config/db";
-import { todosRouter } from "./routes/todos.routes";
-import { userRouter } from "./routes/users.routes";
+
+import authRouter from "./modules/auth/auth.routes";
+import { todosRouter } from "./modules/todo/todos.routes";
+import { userRouter } from "./modules/user/users.routes";
 const port = config.port;
 const app = express();
 app.use(express.json());
@@ -18,6 +20,8 @@ app.listen(port, () => {
 app.use("/users", userRouter);
 //todos crud
 app.use("/todos", todosRouter);
+//auth
+app.use("/auth", authRouter);
 
 app.use((req: Request, res: Response) => {
   res.status(404).json({

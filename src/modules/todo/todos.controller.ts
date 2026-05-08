@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import todosServices from "../services/todos.service";
+import todosServices from "./todos.service";
 
 const todosCreateController = async (req: Request, res: Response) => {
   const { user_id, title, description, completed, due_date } = req.body;
